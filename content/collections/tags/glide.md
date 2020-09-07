@@ -76,7 +76,7 @@ shape:
     name: format
     type: string
     description: >
-      Encodes the image to a specific format. Accepts `jpg`, `pjpg` (progressive jpeg), `png`, `gif` or `webp`. If using the imagick image manipulation driver, glide can additionally handle `tif`, `bmp` and `psd`. The default format: `jpg` 
+      Encodes the image to a specific format. Accepts `jpg`, `pjpg` (progressive jpeg), `png`, `gif` or `webp`. Default: `jpg`.
 
 filters:
   -
@@ -183,17 +183,15 @@ If asset doesn't have a focal point set it will simply crop from the center.
 
 _Note: All Glide generated images are cropped at their focal point, unless you disable the _Auto Crop_ setting. This happens even when you don't specify a `fit` parameter. You may override this behavior per-image/tag by specifying the `fit` parameter as described above._
 
-## Avoid using Glide on SVGs
+## Not supported formats like SVGs
 
-Check file type before using Glide to leave that SVG alone.
+Don't worry about them. In case a format is not supported, glide will return the plain image path. 
+
+The example below would crop supported images, but would simply return formats like an SVG directly without cropping. But you don't want to croop an SVG anyway, right?
 
 ```
 {{ assets:image  }}
-    {{ if extension == 'svg' }}
-         <img src="{{ url }}">
-    {{ else }}
-         <img src="{{ glide:url width="600" }}">
-    {{ /if }}
+     <img src="{{ glide:url width="600" }}">
 {{ /assets:image  }}
 ```
 
